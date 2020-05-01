@@ -181,7 +181,7 @@ GUI::GUI ()
     MutateButton->addListener (this);
     MutateButton->setColour (TextButton::buttonColourId, Colour (0xff61a45c));
 
-    MutateButton->setBounds (224, 184, 150, 24);
+    MutateButton->setBounds (224, 216, 150, 24);
 
     playButton.reset (new ToggleButton ("play"));
     addAndMakeVisible (playButton.get());
@@ -225,6 +225,15 @@ GUI::GUI ()
 
     Mutation5->setBounds (480, 80, 96, 24);
 
+    MutationChanceSlider.reset (new Slider ("mutationChanceSlider1"));
+    addAndMakeVisible (MutationChanceSlider.get());
+    MutationChanceSlider->setRange (0, 10, 0);
+    MutationChanceSlider->setSliderStyle (Slider::LinearHorizontal);
+    MutationChanceSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    MutationChanceSlider->addListener (this);
+
+    MutationChanceSlider->setBounds (168, 192, 256, 24);
+
 
     //[UserPreSize]
     //[/UserPreSize]
@@ -259,6 +268,7 @@ GUI::~GUI()
     Mutation3 = nullptr;
     Mutation4 = nullptr;
     Mutation5 = nullptr;
+    MutationChanceSlider = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -341,6 +351,30 @@ void GUI::paint (Graphics& g)
         //[/UserPaintCustomArguments]
         g.setColour (fillColour);
         g.setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Bold"));
+        g.drawText (text, x, y, width, height,
+                    Justification::centred, true);
+    }
+
+    {
+        int x = 196, y = 164, width = 200, height = 30;
+        String text (TRANS("Mutation Chance"));
+        Colour fillColour = Colours::black;
+        //[UserPaintCustomArguments] Customize the painting arguments here..
+        //[/UserPaintCustomArguments]
+        g.setColour (fillColour);
+        g.setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
+        g.drawText (text, x, y, width, height,
+                    Justification::centred, true);
+    }
+
+    {
+        int x = 172, y = 172, width = 260, height = 30;
+        String text (TRANS("Low                                                  High"));
+        Colour fillColour = Colours::black;
+        //[UserPaintCustomArguments] Customize the painting arguments here..
+        //[/UserPaintCustomArguments]
+        g.setColour (fillColour);
+        g.setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
         g.drawText (text, x, y, width, height,
                     Justification::centred, true);
     }
@@ -468,6 +502,21 @@ void GUI::buttonClicked (Button* buttonThatWasClicked)
     //[/UserbuttonClicked_Post]
 }
 
+void GUI::sliderValueChanged (Slider* sliderThatWasMoved)
+{
+    //[UsersliderValueChanged_Pre]
+    //[/UsersliderValueChanged_Pre]
+
+    if (sliderThatWasMoved == MutationChanceSlider.get())
+    {
+        //[UserSliderCode_MutationChanceSlider] -- add your slider handling code here..
+        //[/UserSliderCode_MutationChanceSlider]
+    }
+
+    //[UsersliderValueChanged_Post]
+    //[/UsersliderValueChanged_Post]
+}
+
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
@@ -506,6 +555,12 @@ BEGIN_JUCER_METADATA
     <TEXT pos="172 412 436 34" fill="solid: ff000000" hasStroke="0" text="These will be for individual parameters NOT YET IMPLEMENTED"
           fontname="Default font" fontsize="15.0" kerning="0.0" bold="1"
           italic="0" justification="36" typefaceStyle="Bold"/>
+    <TEXT pos="196 164 200 30" fill="solid: ff000000" hasStroke="0" text="Mutation Chance"
+          fontname="Default font" fontsize="15.0" kerning="0.0" bold="0"
+          italic="0" justification="36"/>
+    <TEXT pos="172 172 260 30" fill="solid: ff000000" hasStroke="0" text="Low                                                  High"
+          fontname="Default font" fontsize="15.0" kerning="0.0" bold="0"
+          italic="0" justification="36"/>
   </BACKGROUND>
   <COMBOBOX name="new combo box" id="deb4221cd2a7852c" memberName="comboBox"
             virtualName="" explicitFocusOrder="0" pos="384 456 150 24" editable="0"
@@ -547,7 +602,7 @@ BEGIN_JUCER_METADATA
             layout="33" items="0&#10;1&#10;2&#10;3&#10;4&#10;5" textWhenNonSelected="3"
             textWhenNoItems="(no choices)"/>
   <TEXTBUTTON name="Mutate" id="f7fc477cb6ed2c9f" memberName="MutateButton"
-              virtualName="" explicitFocusOrder="0" pos="224 184 150 24" bgColOff="ff61a45c"
+              virtualName="" explicitFocusOrder="0" pos="224 216 150 24" bgColOff="ff61a45c"
               buttonText="MUTATE!" connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TOGGLEBUTTON name="play" id="7a682951062ac653" memberName="playButton" virtualName=""
                 explicitFocusOrder="0" pos="408 32 64 24" buttonText="Play" connectedEdges="0"
@@ -567,6 +622,11 @@ BEGIN_JUCER_METADATA
   <TEXTBUTTON name="Mutation_5" id="302f57a8ddbf4604" memberName="Mutation5"
               virtualName="" explicitFocusOrder="0" pos="480 80 96 24" buttonText="Mutation 5"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
+  <SLIDER name="mutationChanceSlider1" id="9794dbb2bdfc3761" memberName="MutationChanceSlider"
+          virtualName="" explicitFocusOrder="0" pos="168 192 256 24" min="0.0"
+          max="10.0" int="0.0" style="LinearHorizontal" textBoxPos="NoTextBox"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1.0"
+          needsCallback="1"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

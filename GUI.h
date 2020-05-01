@@ -35,7 +35,8 @@
 */
 class GUI  : public Component,
              public ComboBox::Listener,
-             public Button::Listener
+             public Button::Listener,
+             public Slider::Listener
 {
 public:
     //==============================================================================
@@ -52,6 +53,7 @@ public:
     void resized() override;
     void comboBoxChanged (ComboBox* comboBoxThatHasChanged) override;
     void buttonClicked (Button* buttonThatWasClicked) override;
+    void sliderValueChanged (Slider* sliderThatWasMoved) override;
 
 
 
@@ -78,6 +80,7 @@ private:
     std::unique_ptr<TextButton> Mutation3;
     std::unique_ptr<TextButton> Mutation4;
     std::unique_ptr<TextButton> Mutation5;
+    std::unique_ptr<Slider> MutationChanceSlider;
 
 
     //==============================================================================

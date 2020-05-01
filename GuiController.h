@@ -30,4 +30,6 @@ private:
     GUI m_gui;
     
     Genetics m_GrainBoxGenerator;
+    
+    float m_mutateValue = 0.0f;
 };

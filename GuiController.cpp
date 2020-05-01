@@ -19,11 +19,12 @@ m_PluginEditor(PluginEditor),
 m_PluginProcessor(PluginProcessor)
 {
     //                                  set initial granular synth parameters       ******
-    m_PluginProcessor->m_grainSpawner.setSpawnRate(m_GrainBoxGenerator.getGenome(0)[0][0] * 2 + 0.01);
-    m_PluginProcessor->m_grainSpawner.setGrainDur(m_GrainBoxGenerator.getGenome(0)[0][1] * 2 + 0.01);
-    m_PluginProcessor->m_grainSpawner.setSpawnPos(m_GrainBoxGenerator.getGenome(0)[0][2]);
-    m_PluginProcessor->m_grainSpawner.setGrainSpeed(m_GrainBoxGenerator.getGenome(0)[0][3] * 10 - 5);
-    m_PluginProcessor->m_grainSpawner.setPlaySpeed(m_GrainBoxGenerator.getGenome(0)[0][4] * 10 - 5);
+    // all set to Mutation 1 on the GUI
+    m_PluginProcessor->m_grainSpawner.setSpawnRate(m_GrainBoxGenerator.getGenome(0)->getGenes()[0] * 2 + 0.01);
+    m_PluginProcessor->m_grainSpawner.setGrainDur(m_GrainBoxGenerator.getGenome(0)->getGenes()[1] * 2 + 0.01);
+    m_PluginProcessor->m_grainSpawner.setSpawnPos(m_GrainBoxGenerator.getGenome(0)->getGenes()[2]);
+    m_PluginProcessor->m_grainSpawner.setGrainSpeed(m_GrainBoxGenerator.getGenome(0)->getGenes()[3] * 10 - 5);
+    m_PluginProcessor->m_grainSpawner.setPlaySpeed(m_GrainBoxGenerator.getGenome(0)->getGenes()[4] * 10 - 5);
     
     
     //                                  load file popup         ******
@@ -128,20 +129,80 @@ m_PluginProcessor(PluginProcessor)
     };
     
     
+    
+    //                              Mutation Chance Slider                ******
+    m_gui.MutationChanceSlider->onValueChange = [this]
+    {
+        m_mutateValue = m_gui.MutationChanceSlider->getValue();
+    };
+    
     //                                  mutate button                    *******
     m_gui.MutateButton->onClick = [this]()
     {
-        float mutateValue = 0.5;                // MAKE THIS HOOK UP TO EITHER SELECTOR OR SOME OTHER METHOD OF CALCULATION                                      //************************
                     
-        m_GrainBoxGenerator.mutateGeneration(mutateValue);
+        m_GrainBoxGenerator.mutateGeneration(m_mutateValue);
         
-        // set granular synth parameters 
-        m_PluginProcessor->m_grainSpawner.setSpawnRate(m_GrainBoxGenerator.getGenome(0)[0][0] * 2 + 0.01);
-        m_PluginProcessor->m_grainSpawner.setGrainDur(m_GrainBoxGenerator.getGenome(0)[0][1] * 2 + 0.01);
-        m_PluginProcessor->m_grainSpawner.setSpawnPos(m_GrainBoxGenerator.getGenome(0)[0][2]);
-        m_PluginProcessor->m_grainSpawner.setGrainSpeed(m_GrainBoxGenerator.getGenome(0)[0][3] * 10 - 5);
-        m_PluginProcessor->m_grainSpawner.setPlaySpeed(m_GrainBoxGenerator.getGenome(0)[0][4] * 10 - 5);
+        // set granular synth parameters
+        m_PluginProcessor->m_grainSpawner.setSpawnRate(m_GrainBoxGenerator.getGenome(0)->getGenes()[0] * 2 + 0.01);
+        m_PluginProcessor->m_grainSpawner.setGrainDur(m_GrainBoxGenerator.getGenome(0)->getGenes()[1] * 2 + 0.01);
+        m_PluginProcessor->m_grainSpawner.setSpawnPos(m_GrainBoxGenerator.getGenome(0)->getGenes()[2]);
+        m_PluginProcessor->m_grainSpawner.setGrainSpeed(m_GrainBoxGenerator.getGenome(0)->getGenes()[3] * 10 - 5);
+        m_PluginProcessor->m_grainSpawner.setPlaySpeed(m_GrainBoxGenerator.getGenome(0)->getGenes()[4] * 10 - 5);
     };
+    
+    
+    
+    //                              mutation selection buttons             ******
+    m_gui.Mutation1->onClick = [this]()
+    {
+        // set granular synth parameters
+        m_PluginProcessor->m_grainSpawner.setSpawnRate(m_GrainBoxGenerator.getGenome(0)->getGenes()[0] * 2 + 0.01);
+        m_PluginProcessor->m_grainSpawner.setGrainDur(m_GrainBoxGenerator.getGenome(0)->getGenes()[1] * 2 + 0.01);
+        m_PluginProcessor->m_grainSpawner.setSpawnPos(m_GrainBoxGenerator.getGenome(0)->getGenes()[2]);
+        m_PluginProcessor->m_grainSpawner.setGrainSpeed(m_GrainBoxGenerator.getGenome(0)->getGenes()[3] * 10 - 5);
+        m_PluginProcessor->m_grainSpawner.setPlaySpeed(m_GrainBoxGenerator.getGenome(0)->getGenes()[4] * 10 - 5);
+    };
+    
+    m_gui.Mutation2->onClick = [this]()
+    {
+        // set granular synth parameters
+        m_PluginProcessor->m_grainSpawner.setSpawnRate(m_GrainBoxGenerator.getGenome(1)->getGenes()[0] * 2 + 0.01);
+        m_PluginProcessor->m_grainSpawner.setGrainDur(m_GrainBoxGenerator.getGenome(1)->getGenes()[1] * 2 + 0.01);
+        m_PluginProcessor->m_grainSpawner.setSpawnPos(m_GrainBoxGenerator.getGenome(1)->getGenes()[2]);
+        m_PluginProcessor->m_grainSpawner.setGrainSpeed(m_GrainBoxGenerator.getGenome(1)->getGenes()[3] * 10 - 5);
+        m_PluginProcessor->m_grainSpawner.setPlaySpeed(m_GrainBoxGenerator.getGenome(1)->getGenes()[4] * 10 - 5);
+    };
+    
+    m_gui.Mutation3->onClick = [this]()
+    {
+        // set granular synth parameters
+        m_PluginProcessor->m_grainSpawner.setSpawnRate(m_GrainBoxGenerator.getGenome(2)->getGenes()[0] * 2 + 0.01);
+        m_PluginProcessor->m_grainSpawner.setGrainDur(m_GrainBoxGenerator.getGenome(2)->getGenes()[1] * 2 + 0.01);
+        m_PluginProcessor->m_grainSpawner.setSpawnPos(m_GrainBoxGenerator.getGenome(2)->getGenes()[2]);
+        m_PluginProcessor->m_grainSpawner.setGrainSpeed(m_GrainBoxGenerator.getGenome(2)->getGenes()[3] * 10 - 5);
+        m_PluginProcessor->m_grainSpawner.setPlaySpeed(m_GrainBoxGenerator.getGenome(2)->getGenes()[4] * 10 - 5);
+    };
+    
+    m_gui.Mutation4->onClick = [this]()
+    {
+        // set granular synth parameters
+        m_PluginProcessor->m_grainSpawner.setSpawnRate(m_GrainBoxGenerator.getGenome(3)->getGenes()[0] * 2 + 0.01);
+        m_PluginProcessor->m_grainSpawner.setGrainDur(m_GrainBoxGenerator.getGenome(3)->getGenes()[1] * 2 + 0.01);
+        m_PluginProcessor->m_grainSpawner.setSpawnPos(m_GrainBoxGenerator.getGenome(3)->getGenes()[2]);
+        m_PluginProcessor->m_grainSpawner.setGrainSpeed(m_GrainBoxGenerator.getGenome(3)->getGenes()[3] * 10 - 5);
+        m_PluginProcessor->m_grainSpawner.setPlaySpeed(m_GrainBoxGenerator.getGenome(3)->getGenes()[4] * 10 - 5);
+    };
+    
+    m_gui.Mutation5->onClick = [this]()
+    {
+        // set granular synth parameters
+        m_PluginProcessor->m_grainSpawner.setSpawnRate(m_GrainBoxGenerator.getGenome(4)->getGenes()[0] * 2 + 0.01);
+        m_PluginProcessor->m_grainSpawner.setGrainDur(m_GrainBoxGenerator.getGenome(4)->getGenes()[1] * 2 + 0.01);
+        m_PluginProcessor->m_grainSpawner.setSpawnPos(m_GrainBoxGenerator.getGenome(4)->getGenes()[2]);
+        m_PluginProcessor->m_grainSpawner.setGrainSpeed(m_GrainBoxGenerator.getGenome(4)->getGenes()[3] * 10 - 5);
+        m_PluginProcessor->m_grainSpawner.setPlaySpeed(m_GrainBoxGenerator.getGenome(4)->getGenes()[4] * 10 - 5);
+    };
+    
     
     
 }
