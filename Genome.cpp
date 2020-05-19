@@ -25,7 +25,8 @@ Genome::Genome(int size)
 
 Genome::Genome(const Genome& other):
 m_genes(other.m_genes),
-m_scores(other.m_scores)        // remember all scores will need to be copied over now in every constructor
+m_scores(other.m_scores),        // remember all scores will need to be copied over now in every constructor
+lock(other.lock)
 {
     
 }
@@ -61,6 +62,7 @@ Genome::Genome(const Genome& other, float randomPercentage)
 {
     if(lock)
     {
+    //    std::cout<<"lock"<<std::endl;
         int counter = 0;
         for(auto gene : other.m_genes)
         {

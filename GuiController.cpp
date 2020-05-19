@@ -91,7 +91,6 @@ m_PluginProcessor(PluginProcessor)
         if (m_gui.GenomeGrader1->getSelectedId() == 6)
         {
             //set lock if graded 5/5
-            DBG( "grader 1 5/5 selected" );
             m_GrainBoxGenerator.getGenome(0)->lock = true;
         }else{
             m_GrainBoxGenerator.getGenome(0)->lock = false;
@@ -103,10 +102,11 @@ m_PluginProcessor(PluginProcessor)
     {
         m_GrainBoxGenerator.getGenome(1)->weight = m_gui.GenomeGrader1->getSelectedId() - 1;
         
-        if (m_gui.GenomeGrader1->getSelectedId() == 6)
+        if (m_gui.GenomeGrader2->getSelectedId() == 6)
         {
             //set lock if graded 5/5
             m_GrainBoxGenerator.getGenome(1)->lock = true;
+            
         }else{
             m_GrainBoxGenerator.getGenome(1)->lock = false;
         }
@@ -117,7 +117,7 @@ m_PluginProcessor(PluginProcessor)
     {
         m_GrainBoxGenerator.getGenome(2)->weight = m_gui.GenomeGrader1->getSelectedId() - 1;
         
-        if (m_gui.GenomeGrader1->getSelectedId() == 6)
+        if (m_gui.GenomeGrader3->getSelectedId() == 6)
         {
             //set lock if graded 5/5
             m_GrainBoxGenerator.getGenome(2)->lock = true;
@@ -131,7 +131,7 @@ m_PluginProcessor(PluginProcessor)
     {
         m_GrainBoxGenerator.getGenome(3)->weight = m_gui.GenomeGrader1->getSelectedId() - 1;
         
-        if (m_gui.GenomeGrader1->getSelectedId() == 6)
+        if (m_gui.GenomeGrader4->getSelectedId() == 6)
         {
             //set lock if graded 5/5
             m_GrainBoxGenerator.getGenome(3)->lock = true;
@@ -145,7 +145,7 @@ m_PluginProcessor(PluginProcessor)
     {
         m_GrainBoxGenerator.getGenome(4)->weight = m_gui.GenomeGrader1->getSelectedId() - 1;
         
-        if (m_gui.GenomeGrader1->getSelectedId() == 6)
+        if (m_gui.GenomeGrader5->getSelectedId() == 6)
         {
             //set lock if graded 5/5
             m_GrainBoxGenerator.getGenome(4)->lock = true;
@@ -160,16 +160,12 @@ m_PluginProcessor(PluginProcessor)
     m_gui.MutationChanceSlider->onValueChange = [this]
     {
 //        m_mutateValue = m_gui.MutationChanceSlider->getValue();
-        std::cout << m_gui.MutationChanceSlider->getValue() << std::endl;
     };
 //    */
     //                                  mutate button                    *******
     m_gui.MutateButton->onClick = [this]()
     {
         m_mutateValue = m_gui.MutationChanceSlider->getValue();
-        std::cout << "m_mutateValue" << std::endl;
-        std::cout << m_mutateValue << std::endl;
-        std::cout << m_gui.MutationChanceSlider->getValue() << std::endl;
         m_GrainBoxGenerator.mutateGeneration(m_mutateValue);
         
         // set granular synth parameters to first mutant
