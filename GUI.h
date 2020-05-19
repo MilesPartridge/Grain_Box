@@ -59,6 +59,7 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
+    TooltipWindow tooltipWindow;
     //[/UserVariables]
 
     //==============================================================================
@@ -81,6 +82,12 @@ private:
     std::unique_ptr<TextButton> Mutation4;
     std::unique_ptr<TextButton> Mutation5;
     std::unique_ptr<Slider> MutationChanceSlider;
+    std::unique_ptr<Slider> dial1;
+    std::unique_ptr<Slider> dial2;
+    std::unique_ptr<Slider> dial3;
+    std::unique_ptr<Slider> dial4;
+    std::unique_ptr<Slider> dial5;
+    std::unique_ptr<Label> MutationLabel;
 
 
     //==============================================================================

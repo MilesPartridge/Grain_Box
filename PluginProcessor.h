@@ -66,6 +66,12 @@ private:
     AudioFormatManager m_formatManager;
     
     GrainSpawner m_grainSpawner;
+    /*
+    std::vector<float> m_sampleVector;
+    
+    int sample = 0;
+    */
+    bool nowPlaying = false;
     
     int m_sampleRate;
 };

@@ -42,5 +42,6 @@ private:
     GuiController m_controller;
     
     
+    
     friend class GuiController;
 };

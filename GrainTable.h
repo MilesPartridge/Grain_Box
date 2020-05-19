@@ -16,7 +16,7 @@
 
 class Phasor
 {
-    float m_sampleRate,m_frequency,m_phase,m_delta;
+    float m_sampleRate, m_frequency, m_phase, m_delta;
     
 public:
     

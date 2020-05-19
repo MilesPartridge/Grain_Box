@@ -234,6 +234,62 @@ GUI::GUI ()
 
     MutationChanceSlider->setBounds (168, 192, 256, 24);
 
+    dial1.reset (new Slider ("StartPos"));
+    addAndMakeVisible (dial1.get());
+    dial1->setRange (0, 1, 0);
+    dial1->setSliderStyle (Slider::Rotary);
+    dial1->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    dial1->addListener (this);
+
+    dial1->setBounds (68, 278, 80, 72);
+
+    dial2.reset (new Slider ("GrainDur"));
+    addAndMakeVisible (dial2.get());
+    dial2->setRange (0, 1, 0);
+    dial2->setSliderStyle (Slider::Rotary);
+    dial2->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    dial2->addListener (this);
+
+    dial2->setBounds (164, 278, 80, 72);
+
+    dial3.reset (new Slider ("GrainSpeed"));
+    addAndMakeVisible (dial3.get());
+    dial3->setRange (0, 1, 0);
+    dial3->setSliderStyle (Slider::Rotary);
+    dial3->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    dial3->addListener (this);
+
+    dial3->setBounds (260, 278, 80, 72);
+
+    dial4.reset (new Slider ("SpawnRate"));
+    addAndMakeVisible (dial4.get());
+    dial4->setRange (0, 1, 0);
+    dial4->setSliderStyle (Slider::Rotary);
+    dial4->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    dial4->addListener (this);
+
+    dial4->setBounds (364, 278, 80, 72);
+
+    dial5.reset (new Slider ("PlaySpeed"));
+    addAndMakeVisible (dial5.get());
+    dial5->setRange (0, 1, 0);
+    dial5->setSliderStyle (Slider::Rotary);
+    dial5->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    dial5->addListener (this);
+
+    dial5->setBounds (468, 278, 80, 72);
+
+    MutationLabel.reset (new Label ("MutationLabel",
+                                    TRANS("Mutation 1 Selected")));
+    addAndMakeVisible (MutationLabel.get());
+    MutationLabel->setFont (Font ("Rockwell", 15.00f, Font::plain).withTypefaceStyle ("Regular"));
+    MutationLabel->setJustificationType (Justification::centredLeft);
+    MutationLabel->setEditable (false, false, false);
+    MutationLabel->setColour (TextEditor::textColourId, Colours::black);
+    MutationLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+
+    MutationLabel->setBounds (225, 257, 150, 24);
+
 
     //[UserPreSize]
     //[/UserPreSize]
@@ -242,6 +298,37 @@ GUI::GUI ()
 
 
     //[Constructor] You can add your own custom stuff here..
+
+    comboBox->setTooltip ("Grade Mutation 1!");
+    comboBox2->setTooltip ("Grade Mutation 2!");
+    comboBox3->setTooltip ("Grade Mutation 3!");
+    comboBox4->setTooltip ("Grade Mutation 4!");
+    comboBox5->setTooltip ("Grade Mutation 5!");
+    loadSoundButton->setTooltip ("Load a sound with this!");
+    GenomeGrader1->setTooltip ("Grade Mutation 1!");
+    GenomeGrader2->setTooltip ("Grade Mutation 2!");
+    GenomeGrader3 ->setTooltip ("Grade Mutation 3!");
+    GenomeGrader4->setTooltip ("Grade Mutation 4!");
+    GenomeGrader5->setTooltip ("Grade Mutation 5!");
+    MutateButton->setTooltip ("Grade the mutations first, then press this to make a new generation of sounds");
+    playButton->setTooltip ("This is a playButton with a label");
+    Mutation1->setTooltip ("Hear this mutation!");
+    Mutation2->setTooltip ("Hear this mutation!");
+    Mutation3->setTooltip ("Hear this mutation!");
+    Mutation4->setTooltip ("Hear this mutation!");
+    Mutation5->setTooltip ("Hear this mutation!");
+    MutationChanceSlider->setTooltip ("Set the percentage chance of a synth parameter mutating");
+    dial1->setTooltip ("Setting for start position");
+    dial2->setTooltip ("Setting for grain duration");
+    dial3->setTooltip ("Setting for grain speed");
+    dial4->setTooltip ("Setting for spawn rate");
+    dial5->setTooltip ("Setting for play speed");
+    dial1->setEnabled (false);
+    dial2->setEnabled (false);
+    dial3->setEnabled (false);
+    dial4->setEnabled (false);
+    dial5->setEnabled (false);
+
     //[/Constructor]
 }
 
@@ -269,6 +356,12 @@ GUI::~GUI()
     Mutation4 = nullptr;
     Mutation5 = nullptr;
     MutationChanceSlider = nullptr;
+    dial1 = nullptr;
+    dial2 = nullptr;
+    dial3 = nullptr;
+    dial4 = nullptr;
+    dial5 = nullptr;
+    MutationLabel = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -362,19 +455,19 @@ void GUI::paint (Graphics& g)
         //[UserPaintCustomArguments] Customize the painting arguments here..
         //[/UserPaintCustomArguments]
         g.setColour (fillColour);
-        g.setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
+        g.setFont (Font ("Rockwell", 15.00f, Font::plain).withTypefaceStyle ("Regular"));
         g.drawText (text, x, y, width, height,
                     Justification::centred, true);
     }
 
     {
-        int x = 172, y = 172, width = 260, height = 30;
+        int x = 164, y = 172, width = 276, height = 30;
         String text (TRANS("Low                                                  High"));
         Colour fillColour = Colours::black;
         //[UserPaintCustomArguments] Customize the painting arguments here..
         //[/UserPaintCustomArguments]
         g.setColour (fillColour);
-        g.setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
+        g.setFont (Font ("Rockwell", 15.00f, Font::plain).withTypefaceStyle ("Regular"));
         g.drawText (text, x, y, width, height,
                     Justification::centred, true);
     }
@@ -512,6 +605,31 @@ void GUI::sliderValueChanged (Slider* sliderThatWasMoved)
         //[UserSliderCode_MutationChanceSlider] -- add your slider handling code here..
         //[/UserSliderCode_MutationChanceSlider]
     }
+    else if (sliderThatWasMoved == dial1.get())
+    {
+        //[UserSliderCode_dial1] -- add your slider handling code here..
+        //[/UserSliderCode_dial1]
+    }
+    else if (sliderThatWasMoved == dial2.get())
+    {
+        //[UserSliderCode_dial2] -- add your slider handling code here..
+        //[/UserSliderCode_dial2]
+    }
+    else if (sliderThatWasMoved == dial3.get())
+    {
+        //[UserSliderCode_dial3] -- add your slider handling code here..
+        //[/UserSliderCode_dial3]
+    }
+    else if (sliderThatWasMoved == dial4.get())
+    {
+        //[UserSliderCode_dial4] -- add your slider handling code here..
+        //[/UserSliderCode_dial4]
+    }
+    else if (sliderThatWasMoved == dial5.get())
+    {
+        //[UserSliderCode_dial5] -- add your slider handling code here..
+        //[/UserSliderCode_dial5]
+    }
 
     //[UsersliderValueChanged_Post]
     //[/UsersliderValueChanged_Post]
@@ -556,11 +674,11 @@ BEGIN_JUCER_METADATA
           fontname="Default font" fontsize="15.0" kerning="0.0" bold="1"
           italic="0" justification="36" typefaceStyle="Bold"/>
     <TEXT pos="196 164 200 30" fill="solid: ff000000" hasStroke="0" text="Mutation Chance"
-          fontname="Default font" fontsize="15.0" kerning="0.0" bold="0"
-          italic="0" justification="36"/>
-    <TEXT pos="172 172 260 30" fill="solid: ff000000" hasStroke="0" text="Low                                                  High"
-          fontname="Default font" fontsize="15.0" kerning="0.0" bold="0"
-          italic="0" justification="36"/>
+          fontname="Rockwell" fontsize="15.0" kerning="0.0" bold="0" italic="0"
+          justification="36"/>
+    <TEXT pos="164 172 276 30" fill="solid: ff000000" hasStroke="0" text="Low                                                  High"
+          fontname="Rockwell" fontsize="15.0" kerning="0.0" bold="0" italic="0"
+          justification="36"/>
   </BACKGROUND>
   <COMBOBOX name="new combo box" id="deb4221cd2a7852c" memberName="comboBox"
             virtualName="" explicitFocusOrder="0" pos="384 456 150 24" editable="0"
@@ -627,6 +745,31 @@ BEGIN_JUCER_METADATA
           max="10.0" int="0.0" style="LinearHorizontal" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1.0"
           needsCallback="1"/>
+  <SLIDER name="StartPos" id="39a0c0a7901dcb55" memberName="dial1" virtualName=""
+          explicitFocusOrder="0" pos="68 278 80 72" min="0.0" max="1.0"
+          int="0.0" style="Rotary" textBoxPos="NoTextBox" textBoxEditable="1"
+          textBoxWidth="80" textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
+  <SLIDER name="GrainDur" id="7454eb5f570f53d4" memberName="dial2" virtualName=""
+          explicitFocusOrder="0" pos="164 278 80 72" min="0.0" max="1.0"
+          int="0.0" style="Rotary" textBoxPos="NoTextBox" textBoxEditable="1"
+          textBoxWidth="80" textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
+  <SLIDER name="GrainSpeed" id="83548687e5528668" memberName="dial3" virtualName=""
+          explicitFocusOrder="0" pos="260 278 80 72" min="0.0" max="1.0"
+          int="0.0" style="Rotary" textBoxPos="NoTextBox" textBoxEditable="1"
+          textBoxWidth="80" textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
+  <SLIDER name="SpawnRate" id="31dca97c738d525a" memberName="dial4" virtualName=""
+          explicitFocusOrder="0" pos="364 278 80 72" min="0.0" max="1.0"
+          int="0.0" style="Rotary" textBoxPos="NoTextBox" textBoxEditable="1"
+          textBoxWidth="80" textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
+  <SLIDER name="PlaySpeed" id="1b5ec779fe6482cd" memberName="dial5" virtualName=""
+          explicitFocusOrder="0" pos="468 278 80 72" min="0.0" max="1.0"
+          int="0.0" style="Rotary" textBoxPos="NoTextBox" textBoxEditable="1"
+          textBoxWidth="80" textBoxHeight="20" skewFactor="1.0" needsCallback="1"/>
+  <LABEL name="MutationLabel" id="ee537481f07baf61" memberName="MutationLabel"
+         virtualName="" explicitFocusOrder="0" pos="225 257 150 24" edTextCol="ff000000"
+         edBkgCol="0" labelText="Mutation 1 Selected" editableSingleClick="0"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Rockwell"
+         fontsize="15.0" kerning="0.0" bold="0" italic="0" justification="33"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

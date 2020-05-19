@@ -18,12 +18,12 @@ typedef std::vector<Grain> GrainVector;
 
 class GrainSpawner{
     GrainVector m_grains;
-    GrainTable m_audio,m_window;
+    GrainTable m_audio, m_window;
     bool m_playing;
     float m_sampleRate;
     int m_samplesToNextSpawn;
     
-    float m_spawnPos,m_grainDuration,m_spawnRate,m_grainSpeed,m_playBackSpeed;
+    float m_spawnPos, m_grainDuration, m_spawnRate, m_grainSpeed, m_playBackSpeed;
     Phasor m_playBackPhasor;
 public:
     GrainSpawner();

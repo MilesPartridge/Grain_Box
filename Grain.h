@@ -19,7 +19,7 @@
 
 class Grain{
     bool m_active;
-    float m_startPos, m_duration,m_currentPosition,m_amp,m_grainSpeed,m_windowIndex;
+    float m_startPos, m_duration, m_currentPosition, m_amp, m_grainSpeed, m_windowIndex;
     
 public:
     
