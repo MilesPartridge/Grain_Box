@@ -328,6 +328,7 @@ GUI::GUI ()
     dial3->setEnabled (false);
     dial4->setEnabled (false);
     dial5->setEnabled (false);
+    playButton->setTooltip ("Toggle sound on/off");
 
     //[/Constructor]
 }

@@ -33,6 +33,10 @@ m_PluginProcessor(PluginProcessor)
     m_gui.dial4->setValue(m_GrainBoxGenerator.getGenome(0)->getGenes()[3]);
     m_gui.dial5->setValue(m_GrainBoxGenerator.getGenome(0)->getGenes()[4]);
     
+    // set sound on and toggle to show it
+    m_gui.playButton->setToggleState(true, dontSendNotification);
+    m_PluginProcessor->nowPlaying = m_gui.playButton->getToggleState();
+    
     // set label
     m_gui.MutationLabel->setText(TRANS("Mutation 1 Selected"), dontSendNotification);
     
@@ -291,12 +295,7 @@ m_PluginProcessor(PluginProcessor)
     
     m_gui.playButton->onClick = [this]()
     {
-        if (m_PluginProcessor->nowPlaying == false)
-        {
-            m_PluginProcessor->nowPlaying = true;
-        } else {
-            m_PluginProcessor->nowPlaying = false;
-        }
+        m_PluginProcessor->nowPlaying = m_gui.playButton->getToggleState();
     };
     
 }
