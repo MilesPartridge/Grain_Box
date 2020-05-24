@@ -74,6 +74,7 @@ forwardFFT (fftOrder)
                 */
                 
                 // FFT stuff                 ******
+                nextFFTBlockReady = false;
                 for (auto i = 0; i < data.getNumSamples(); ++i)
                 {
                     pushNextSampleIntoFifo(data.getSample(0, i));
@@ -87,6 +88,18 @@ forwardFFT (fftOrder)
                 std::cout << "Bin width: " << binWidth << '\n';
                 float binFrequency = std::distance(fftData.begin(), result) * binWidth;
                 std::cout << "Bin Frequency: " << binFrequency << '\n';
+                // now set grain speed according to sample frequency
+                offset = binFrequency / 40;
+                if (offset > 24)
+                {
+                    offset = 24;
+                }
+                for (int i = 0; i < 24; ++i)
+                {
+                    pitchOffset[i] = i - offset;    // the higher the frequency, the lower the range of notes
+                }
+                m_PluginProcessor->m_grainSpawner.setGrainSpeed( pitchOffset[(int)(m_GrainBoxGenerator.getGenome(0)->getGenes()[3] * 24)] );
+                
                 
                 // Granular synth stuff      ******
                 m_PluginProcessor->m_grainSpawner.setAudioSize(data.getNumSamples());
@@ -191,7 +204,7 @@ forwardFFT (fftOrder)
         m_PluginProcessor->m_grainSpawner.setSpawnRate(m_GrainBoxGenerator.getGenome(0)->getGenes()[0] * 2 + 0.01);
         m_PluginProcessor->m_grainSpawner.setGrainDur(m_GrainBoxGenerator.getGenome(0)->getGenes()[1] * 2 + 0.01);
         m_PluginProcessor->m_grainSpawner.setSpawnPos(m_GrainBoxGenerator.getGenome(0)->getGenes()[2]);
-        m_PluginProcessor->m_grainSpawner.setGrainSpeed(m_GrainBoxGenerator.getGenome(0)->getGenes()[3] * 10 - 5);
+        m_PluginProcessor->m_grainSpawner.setGrainSpeed( pitchOffset[(int)(m_GrainBoxGenerator.getGenome(0)->getGenes()[3] * 24)] );
         m_PluginProcessor->m_grainSpawner.setPlaySpeed(m_GrainBoxGenerator.getGenome(0)->getGenes()[4] * 10 - 5);
         
         // set all dials to relevant positions
@@ -214,7 +227,7 @@ forwardFFT (fftOrder)
         m_PluginProcessor->m_grainSpawner.setSpawnRate(m_GrainBoxGenerator.getGenome(0)->getGenes()[0] * 2 + 0.01);
         m_PluginProcessor->m_grainSpawner.setGrainDur(m_GrainBoxGenerator.getGenome(0)->getGenes()[1] * 2 + 0.01);
         m_PluginProcessor->m_grainSpawner.setSpawnPos(m_GrainBoxGenerator.getGenome(0)->getGenes()[2]);
-        m_PluginProcessor->m_grainSpawner.setGrainSpeed(m_GrainBoxGenerator.getGenome(0)->getGenes()[3] * 10 - 5);
+        m_PluginProcessor->m_grainSpawner.setGrainSpeed( pitchOffset[(int)(m_GrainBoxGenerator.getGenome(0)->getGenes()[3] * 24)] );
         m_PluginProcessor->m_grainSpawner.setPlaySpeed(m_GrainBoxGenerator.getGenome(0)->getGenes()[4] * 10 - 5);
         
         // set all dials to relevant positions
@@ -234,7 +247,7 @@ forwardFFT (fftOrder)
         m_PluginProcessor->m_grainSpawner.setSpawnRate(m_GrainBoxGenerator.getGenome(1)->getGenes()[0] * 2 + 0.01);
         m_PluginProcessor->m_grainSpawner.setGrainDur(m_GrainBoxGenerator.getGenome(1)->getGenes()[1] * 2 + 0.01);
         m_PluginProcessor->m_grainSpawner.setSpawnPos(m_GrainBoxGenerator.getGenome(1)->getGenes()[2]);
-        m_PluginProcessor->m_grainSpawner.setGrainSpeed(m_GrainBoxGenerator.getGenome(1)->getGenes()[3] * 10 - 5);
+        m_PluginProcessor->m_grainSpawner.setGrainSpeed( pitchOffset[(int)(m_GrainBoxGenerator.getGenome(1)->getGenes()[3] * 24)] );
         m_PluginProcessor->m_grainSpawner.setPlaySpeed(m_GrainBoxGenerator.getGenome(1)->getGenes()[4] * 10 - 5);
         
         // set all dials to relevant positions
@@ -254,7 +267,7 @@ forwardFFT (fftOrder)
         m_PluginProcessor->m_grainSpawner.setSpawnRate(m_GrainBoxGenerator.getGenome(2)->getGenes()[0] * 2 + 0.01);
         m_PluginProcessor->m_grainSpawner.setGrainDur(m_GrainBoxGenerator.getGenome(2)->getGenes()[1] * 2 + 0.01);
         m_PluginProcessor->m_grainSpawner.setSpawnPos(m_GrainBoxGenerator.getGenome(2)->getGenes()[2]);
-        m_PluginProcessor->m_grainSpawner.setGrainSpeed(m_GrainBoxGenerator.getGenome(2)->getGenes()[3] * 10 - 5);
+        m_PluginProcessor->m_grainSpawner.setGrainSpeed( pitchOffset[(int)(m_GrainBoxGenerator.getGenome(2)->getGenes()[3] * 24)] );
         m_PluginProcessor->m_grainSpawner.setPlaySpeed(m_GrainBoxGenerator.getGenome(2)->getGenes()[4] * 10 - 5);
         
         // set all dials to relevant positions
@@ -274,7 +287,7 @@ forwardFFT (fftOrder)
         m_PluginProcessor->m_grainSpawner.setSpawnRate(m_GrainBoxGenerator.getGenome(3)->getGenes()[0] * 2 + 0.01);
         m_PluginProcessor->m_grainSpawner.setGrainDur(m_GrainBoxGenerator.getGenome(3)->getGenes()[1] * 2 + 0.01);
         m_PluginProcessor->m_grainSpawner.setSpawnPos(m_GrainBoxGenerator.getGenome(3)->getGenes()[2]);
-        m_PluginProcessor->m_grainSpawner.setGrainSpeed(m_GrainBoxGenerator.getGenome(3)->getGenes()[3] * 10 - 5);
+        m_PluginProcessor->m_grainSpawner.setGrainSpeed( pitchOffset[(int)(m_GrainBoxGenerator.getGenome(3)->getGenes()[3] * 24)] );
         m_PluginProcessor->m_grainSpawner.setPlaySpeed(m_GrainBoxGenerator.getGenome(3)->getGenes()[4] * 10 - 5);
         
         // set all dials to relevant positions
@@ -294,7 +307,7 @@ forwardFFT (fftOrder)
         m_PluginProcessor->m_grainSpawner.setSpawnRate(m_GrainBoxGenerator.getGenome(4)->getGenes()[0] * 2 + 0.01);
         m_PluginProcessor->m_grainSpawner.setGrainDur(m_GrainBoxGenerator.getGenome(4)->getGenes()[1] * 2 + 0.01);
         m_PluginProcessor->m_grainSpawner.setSpawnPos(m_GrainBoxGenerator.getGenome(4)->getGenes()[2]);
-        m_PluginProcessor->m_grainSpawner.setGrainSpeed(m_GrainBoxGenerator.getGenome(4)->getGenes()[3] * 10 - 5);
+        m_PluginProcessor->m_grainSpawner.setGrainSpeed( pitchOffset[(int)(m_GrainBoxGenerator.getGenome(4)->getGenes()[3] * 24)] );
         m_PluginProcessor->m_grainSpawner.setPlaySpeed(m_GrainBoxGenerator.getGenome(4)->getGenes()[4] * 10 - 5);
         
         // set all dials to relevant positions
@@ -325,9 +338,9 @@ GuiController::~GuiController()
 
 void GuiController::pushNextSampleIntoFifo (float sample) noexcept
 {
-    if (fifoIndex == fftSize)    // [8]
+    if (fifoIndex == fftSize)
     {
-        if (! nextFFTBlockReady) // [9]
+        if (! nextFFTBlockReady)
         {
             std::fill (fftData.begin(), fftData.end(), 0.0f);
             std::copy (fifo.begin(), fifo.end(), fftData.begin());
@@ -337,5 +350,5 @@ void GuiController::pushNextSampleIntoFifo (float sample) noexcept
         fifoIndex = 0;
     }
  
-    fifo[fifoIndex++] = sample;  // [9]
+    fifo[fifoIndex++] = sample;
 }

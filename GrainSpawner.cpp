@@ -106,7 +106,7 @@ void GrainSpawner::process(float* left, float* right, int numSamples)
 
 void GrainSpawner::setSpawnPos(float val)
 {
-    while(val < 0 )val += 1;
+    while(val < 0)val += 1;
     while(val > 1)val -= 1;
     
     m_spawnPos = val * m_audio.getSize();
@@ -115,19 +115,21 @@ void GrainSpawner::setSpawnPos(float val)
 
 void GrainSpawner::setGrainDur(float durInSeconds)
 {
-    m_grainDuration = durInSeconds * m_sampleRate;
+    m_grainDuration = durInSeconds * m_sampleRate * m_grainSizeLoweringAmount;
 }
 
 
 void GrainSpawner::setSpawnRate(float rateInSeconds)
 {
-    m_spawnRate = rateInSeconds * m_sampleRate;
+    m_spawnRate = rateInSeconds * m_sampleRate * 0.5;
 }
 
 
-void GrainSpawner::setGrainSpeed(float speed)
+void GrainSpawner::setGrainSpeed(int n)
 {
-    m_grainSpeed = speed;
+    float var = m_sampleRate / m_grainDuration;
+    var /= pow(2, (n / 12));   // find note in equal temperament 'n' steps away from current note
+    m_grainSpeed = var;
 }
 
 

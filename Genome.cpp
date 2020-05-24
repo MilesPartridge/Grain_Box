@@ -52,7 +52,7 @@ Genome::Genome(const Genome& a, const Genome& b, float crossOverPoint)
             m_scores.push_back(a.m_scores[n]);      // remember scores
 
         }else{
-            m_genes.push_back(b.m_genes[n ]);
+            m_genes.push_back(b.m_genes[n]);
         }
     }
 }

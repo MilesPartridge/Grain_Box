@@ -20,7 +20,7 @@ class GrainSpawner{
     GrainVector m_grains;
     GrainTable m_audio, m_window;
     bool m_playing;
-    float m_sampleRate;
+    float m_sampleRate, m_grainSizeLoweringAmount = 0.7;
     int m_samplesToNextSpawn;
     
     float m_spawnPos, m_grainDuration, m_spawnRate, m_grainSpeed, m_playBackSpeed;
@@ -38,7 +38,7 @@ public:
     void setSpawnPos(float val);
     void setGrainDur(float durInSeconds);
     void setSpawnRate(float rateInSeconds);
-    void setGrainSpeed(float speed);
+    void setGrainSpeed(int n);
     void setPlaySpeed(float speed);
 };
 

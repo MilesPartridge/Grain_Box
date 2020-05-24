@@ -34,7 +34,6 @@ void Grain::spawn(float startpos, float duration, float grainSpeed)
     m_amp = 0.7;
     m_windowIndex = 0;
     m_active = true;
-    
 }
 
 
@@ -45,13 +44,13 @@ void Grain::process(int index,
                     GrainTable& m_window )
 {
     
-    if(m_active == true && leftChannel != nullptr && rightChannel != nullptr ){
-        
+    if(m_active == true && leftChannel != nullptr && rightChannel != nullptr )
+    {
         float windowSize = m_window.getSize();
         //check the windowing here...
-        float a = m_audio[m_startPos + m_currentPosition ];
-        float w = m_window[ (m_windowIndex/m_duration) *windowSize];
-        float s =  a  *w;
+        float a = m_audio[m_startPos + m_currentPosition];
+        float w = m_window[ (m_windowIndex / m_duration) * windowSize];
+        float s =  a  *  w;
         
         leftChannel[index] += s;
         rightChannel[index] += s;
@@ -60,7 +59,8 @@ void Grain::process(int index,
         ++m_windowIndex;
         m_currentPosition += m_grainSpeed;
         
-        if(m_windowIndex >= m_duration){
+        if(m_windowIndex >= m_duration)
+        {
             m_active = false;
         }
     }

@@ -28,7 +28,7 @@ public:
     //fft stuff
     static constexpr auto fftOrder = 10;
     static constexpr auto fftSize  = 1 << fftOrder;
-    void pushNextSampleIntoFifo (float sample) noexcept;
+    void pushNextSampleIntoFifo(float sample) noexcept;
     
 private:
     GrainBoxAudioProcessorEditor* m_PluginEditor;
@@ -43,6 +43,8 @@ private:
     dsp::FFT forwardFFT; 
     std::array<float, fftSize> fifo;
     std::array<float, fftSize * 2> fftData;
+    std::array<int, 24> pitchOffset;
+    int offset = 0;
     int fifoIndex = 0;
     bool nextFFTBlockReady = false;
 };
