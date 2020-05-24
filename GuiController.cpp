@@ -13,10 +13,13 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
+#include <algorithm>
+
 
 GuiController::GuiController(GrainBoxAudioProcessorEditor* PluginEditor, GrainBoxAudioProcessor* PluginProcessor):
 m_PluginEditor(PluginEditor),
-m_PluginProcessor(PluginProcessor)
+m_PluginProcessor(PluginProcessor),
+forwardFFT (fftOrder)
 {
     //                                  set initial granular synth parameters       ******
     // all set to Mutation 1 on the GUI
@@ -70,6 +73,22 @@ m_PluginProcessor(PluginProcessor)
                 //
                 */
                 
+                // FFT stuff                 ******
+                for (auto i = 0; i < data.getNumSamples(); ++i)
+                {
+                    pushNextSampleIntoFifo(data.getSample(0, i));
+                }
+                forwardFFT.performFrequencyOnlyForwardTransform(fftData.data());
+                // now find the bin with the highest value in, which should be the fundamental
+                auto result = std::max_element(fftData.begin(), fftData.end());
+                std::cout << "max element at: " << std::distance(fftData.begin(), result) << '\n';
+                std::cout << "FFT size: " << std::distance(fftData.begin(), fftData.end()) << '\n';
+                float binWidth = m_PluginProcessor->m_sampleRate / fftSize;
+                std::cout << "Bin width: " << binWidth << '\n';
+                float binFrequency = std::distance(fftData.begin(), result) * binWidth;
+                std::cout << "Bin Frequency: " << binFrequency << '\n';
+                
+                // Granular synth stuff      ******
                 m_PluginProcessor->m_grainSpawner.setAudioSize(data.getNumSamples());
                 
                 for(int n = 0; n < data.getNumSamples(); ++n)
@@ -301,4 +320,22 @@ m_PluginProcessor(PluginProcessor)
 
 GuiController::~GuiController()
 {
+}
+
+
+void GuiController::pushNextSampleIntoFifo (float sample) noexcept
+{
+    if (fifoIndex == fftSize)    // [8]
+    {
+        if (! nextFFTBlockReady) // [9]
+        {
+            std::fill (fftData.begin(), fftData.end(), 0.0f);
+            std::copy (fifo.begin(), fifo.end(), fftData.begin());
+            nextFFTBlockReady = true;
+        }
+ 
+        fifoIndex = 0;
+    }
+ 
+    fifo[fifoIndex++] = sample;  // [9]
 }

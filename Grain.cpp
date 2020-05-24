@@ -38,7 +38,11 @@ void Grain::spawn(float startpos, float duration, float grainSpeed)
 }
 
 
-void Grain::process(int index, float* leftChannel, float* rightChannel, GrainTable& m_audio,GrainTable& m_window)
+void Grain::process(int index,
+                    float* leftChannel,
+                    float* rightChannel,
+                    GrainTable& m_audio,
+                    GrainTable& m_window )
 {
     
     if(m_active == true && leftChannel != nullptr && rightChannel != nullptr ){

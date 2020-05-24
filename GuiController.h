@@ -24,6 +24,12 @@ public:
     ~GuiController();
     
     friend class GrainBoxAudioProcessorEditor;
+    
+    //fft stuff
+    static constexpr auto fftOrder = 10;
+    static constexpr auto fftSize  = 1 << fftOrder;
+    void pushNextSampleIntoFifo (float sample) noexcept;
+    
 private:
     GrainBoxAudioProcessorEditor* m_PluginEditor;
     GrainBoxAudioProcessor* m_PluginProcessor;
@@ -32,4 +38,11 @@ private:
     Genetics m_GrainBoxGenerator;
     
     float m_mutateValue = 0.0f;
+    
+    //fft variables
+    dsp::FFT forwardFFT; 
+    std::array<float, fftSize> fifo;
+    std::array<float, fftSize * 2> fftData;
+    int fifoIndex = 0;
+    bool nextFFTBlockReady = false;
 };

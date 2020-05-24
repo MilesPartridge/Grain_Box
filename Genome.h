@@ -82,6 +82,6 @@ public:
     
 };
 
-    typedef  std::shared_ptr<Genome> GenomePtr;
+typedef  std::shared_ptr<Genome> GenomePtr;
 
 

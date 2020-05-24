@@ -129,7 +129,7 @@ public:
         a2 = y2 - y0;
         a3 = y1;
         
-        return(a0*mu*mu2+a1*mu2+a2*mu+a3);
+        return(a0 * mu * mu2 + a1 * mu2 + a2 * mu + a3);
     }
     
     
