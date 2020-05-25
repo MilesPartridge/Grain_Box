@@ -32,61 +32,6 @@ GUI::GUI ()
     //[Constructor_pre] You can add your own custom stuff here..
     //[/Constructor_pre]
 
-    comboBox.reset (new ComboBox ("new combo box"));
-    addAndMakeVisible (comboBox.get());
-    comboBox->setEditableText (false);
-    comboBox->setJustificationType (Justification::centredLeft);
-    comboBox->setTextWhenNothingSelected (String());
-    comboBox->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
-    comboBox->addItem (TRANS("1,2,3,4,5"), 1);
-    comboBox->addListener (this);
-
-    comboBox->setBounds (384, 456, 150, 24);
-
-    comboBox2.reset (new ComboBox ("new combo box"));
-    addAndMakeVisible (comboBox2.get());
-    comboBox2->setEditableText (false);
-    comboBox2->setJustificationType (Justification::centredLeft);
-    comboBox2->setTextWhenNothingSelected (String());
-    comboBox2->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
-    comboBox2->addItem (TRANS("1,2,3,4,5"), 1);
-    comboBox2->addListener (this);
-
-    comboBox2->setBounds (384, 488, 150, 24);
-
-    comboBox3.reset (new ComboBox ("new combo box"));
-    addAndMakeVisible (comboBox3.get());
-    comboBox3->setEditableText (false);
-    comboBox3->setJustificationType (Justification::centredLeft);
-    comboBox3->setTextWhenNothingSelected (String());
-    comboBox3->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
-    comboBox3->addItem (TRANS("1,2,3,4,5"), 1);
-    comboBox3->addListener (this);
-
-    comboBox3->setBounds (384, 520, 150, 24);
-
-    comboBox4.reset (new ComboBox ("new combo box"));
-    addAndMakeVisible (comboBox4.get());
-    comboBox4->setEditableText (false);
-    comboBox4->setJustificationType (Justification::centredLeft);
-    comboBox4->setTextWhenNothingSelected (String());
-    comboBox4->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
-    comboBox4->addItem (TRANS("1,2,3,4,5"), 1);
-    comboBox4->addListener (this);
-
-    comboBox4->setBounds (384, 552, 150, 24);
-
-    comboBox5.reset (new ComboBox ("new combo box"));
-    addAndMakeVisible (comboBox5.get());
-    comboBox5->setEditableText (false);
-    comboBox5->setJustificationType (Justification::centredLeft);
-    comboBox5->setTextWhenNothingSelected (String());
-    comboBox5->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
-    comboBox5->addItem (TRANS("1,2,3,4,5"), 1);
-    comboBox5->addListener (this);
-
-    comboBox5->setBounds (384, 584, 150, 24);
-
     loadSoundButton.reset (new TextButton ("new button"));
     addAndMakeVisible (loadSoundButton.get());
     loadSoundButton->setButtonText (TRANS("Load Sound"));
@@ -299,11 +244,6 @@ GUI::GUI ()
 
     //[Constructor] You can add your own custom stuff here..
 
-    comboBox->setTooltip ("Grade Mutation 1!");
-    comboBox2->setTooltip ("Grade Mutation 2!");
-    comboBox3->setTooltip ("Grade Mutation 3!");
-    comboBox4->setTooltip ("Grade Mutation 4!");
-    comboBox5->setTooltip ("Grade Mutation 5!");
     loadSoundButton->setTooltip ("Load a sound with this!");
     GenomeGrader1->setTooltip ("Grade Mutation 1!");
     GenomeGrader2->setTooltip ("Grade Mutation 2!");
@@ -329,7 +269,8 @@ GUI::GUI ()
     dial4->setEnabled (false);
     dial5->setEnabled (false);
     playButton->setTooltip ("Toggle sound on/off");
-
+    MutationChanceSlider->setValue (5, sendNotificationAsync);
+    
     //[/Constructor]
 }
 
@@ -338,11 +279,6 @@ GUI::~GUI()
     //[Destructor_pre]. You can add your own custom destruction code here..
     //[/Destructor_pre]
 
-    comboBox = nullptr;
-    comboBox2 = nullptr;
-    comboBox3 = nullptr;
-    comboBox4 = nullptr;
-    comboBox5 = nullptr;
     loadSoundButton = nullptr;
     GenomeGrader1 = nullptr;
     GenomeGrader2 = nullptr;
@@ -376,78 +312,6 @@ void GUI::paint (Graphics& g)
     //[/UserPrePaint]
 
     g.fillAll (Colour (0xff1c83b6));
-
-    {
-        int x = 180, y = 452, width = 200, height = 30;
-        String text (TRANS("Grade Start Position"));
-        Colour fillColour = Colours::black;
-        //[UserPaintCustomArguments] Customize the painting arguments here..
-        //[/UserPaintCustomArguments]
-        g.setColour (fillColour);
-        g.setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
-        g.drawText (text, x, y, width, height,
-                    Justification::centred, true);
-    }
-
-    {
-        int x = 180, y = 484, width = 200, height = 30;
-        String text (TRANS("Grade Grain Duration"));
-        Colour fillColour = Colours::black;
-        //[UserPaintCustomArguments] Customize the painting arguments here..
-        //[/UserPaintCustomArguments]
-        g.setColour (fillColour);
-        g.setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
-        g.drawText (text, x, y, width, height,
-                    Justification::centred, true);
-    }
-
-    {
-        int x = 180, y = 516, width = 200, height = 30;
-        String text (TRANS("Grade Grain Speed"));
-        Colour fillColour = Colours::black;
-        //[UserPaintCustomArguments] Customize the painting arguments here..
-        //[/UserPaintCustomArguments]
-        g.setColour (fillColour);
-        g.setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
-        g.drawText (text, x, y, width, height,
-                    Justification::centred, true);
-    }
-
-    {
-        int x = 180, y = 548, width = 200, height = 30;
-        String text (TRANS("Grade Spawn Rate"));
-        Colour fillColour = Colours::black;
-        //[UserPaintCustomArguments] Customize the painting arguments here..
-        //[/UserPaintCustomArguments]
-        g.setColour (fillColour);
-        g.setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
-        g.drawText (text, x, y, width, height,
-                    Justification::centred, true);
-    }
-
-    {
-        int x = 180, y = 580, width = 200, height = 30;
-        String text (TRANS("Grade Play Speed"));
-        Colour fillColour = Colours::black;
-        //[UserPaintCustomArguments] Customize the painting arguments here..
-        //[/UserPaintCustomArguments]
-        g.setColour (fillColour);
-        g.setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
-        g.drawText (text, x, y, width, height,
-                    Justification::centred, true);
-    }
-
-    {
-        int x = 172, y = 412, width = 436, height = 34;
-        String text (TRANS("These will be for individual parameters NOT YET IMPLEMENTED"));
-        Colour fillColour = Colours::black;
-        //[UserPaintCustomArguments] Customize the painting arguments here..
-        //[/UserPaintCustomArguments]
-        g.setColour (fillColour);
-        g.setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Bold"));
-        g.drawText (text, x, y, width, height,
-                    Justification::centred, true);
-    }
 
     {
         int x = 196, y = 164, width = 200, height = 30;
@@ -484,66 +348,6 @@ void GUI::resized()
 
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
-}
-
-void GUI::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
-{
-    //[UsercomboBoxChanged_Pre]
-    //[/UsercomboBoxChanged_Pre]
-
-    if (comboBoxThatHasChanged == comboBox.get())
-    {
-        //[UserComboBoxCode_comboBox] -- add your combo box handling code here..
-        //[/UserComboBoxCode_comboBox]
-    }
-    else if (comboBoxThatHasChanged == comboBox2.get())
-    {
-        //[UserComboBoxCode_comboBox2] -- add your combo box handling code here..
-        //[/UserComboBoxCode_comboBox2]
-    }
-    else if (comboBoxThatHasChanged == comboBox3.get())
-    {
-        //[UserComboBoxCode_comboBox3] -- add your combo box handling code here..
-        //[/UserComboBoxCode_comboBox3]
-    }
-    else if (comboBoxThatHasChanged == comboBox4.get())
-    {
-        //[UserComboBoxCode_comboBox4] -- add your combo box handling code here..
-        //[/UserComboBoxCode_comboBox4]
-    }
-    else if (comboBoxThatHasChanged == comboBox5.get())
-    {
-        //[UserComboBoxCode_comboBox5] -- add your combo box handling code here..
-        //[/UserComboBoxCode_comboBox5]
-    }
-    else if (comboBoxThatHasChanged == GenomeGrader1.get())
-    {
-        //[UserComboBoxCode_GenomeGrader1] -- add your combo box handling code here..
-        //[/UserComboBoxCode_GenomeGrader1]
-    }
-    else if (comboBoxThatHasChanged == GenomeGrader2.get())
-    {
-        //[UserComboBoxCode_GenomeGrader2] -- add your combo box handling code here..
-        //[/UserComboBoxCode_GenomeGrader2]
-    }
-    else if (comboBoxThatHasChanged == GenomeGrader3.get())
-    {
-        //[UserComboBoxCode_GenomeGrader3] -- add your combo box handling code here..
-        //[/UserComboBoxCode_GenomeGrader3]
-    }
-    else if (comboBoxThatHasChanged == GenomeGrader4.get())
-    {
-        //[UserComboBoxCode_GenomeGrader4] -- add your combo box handling code here..
-        //[/UserComboBoxCode_GenomeGrader4]
-    }
-    else if (comboBoxThatHasChanged == GenomeGrader5.get())
-    {
-        //[UserComboBoxCode_GenomeGrader5] -- add your combo box handling code here..
-        //[/UserComboBoxCode_GenomeGrader5]
-    }
-
-    //[UsercomboBoxChanged_Post]
-    //[/UsercomboBoxChanged_Post]
 }
 
 void GUI::buttonClicked (Button* buttonThatWasClicked)
@@ -594,6 +398,41 @@ void GUI::buttonClicked (Button* buttonThatWasClicked)
 
     //[UserbuttonClicked_Post]
     //[/UserbuttonClicked_Post]
+}
+
+void GUI::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
+{
+    //[UsercomboBoxChanged_Pre]
+    //[/UsercomboBoxChanged_Pre]
+
+    if (comboBoxThatHasChanged == GenomeGrader1.get())
+    {
+        //[UserComboBoxCode_GenomeGrader1] -- add your combo box handling code here..
+        //[/UserComboBoxCode_GenomeGrader1]
+    }
+    else if (comboBoxThatHasChanged == GenomeGrader2.get())
+    {
+        //[UserComboBoxCode_GenomeGrader2] -- add your combo box handling code here..
+        //[/UserComboBoxCode_GenomeGrader2]
+    }
+    else if (comboBoxThatHasChanged == GenomeGrader3.get())
+    {
+        //[UserComboBoxCode_GenomeGrader3] -- add your combo box handling code here..
+        //[/UserComboBoxCode_GenomeGrader3]
+    }
+    else if (comboBoxThatHasChanged == GenomeGrader4.get())
+    {
+        //[UserComboBoxCode_GenomeGrader4] -- add your combo box handling code here..
+        //[/UserComboBoxCode_GenomeGrader4]
+    }
+    else if (comboBoxThatHasChanged == GenomeGrader5.get())
+    {
+        //[UserComboBoxCode_GenomeGrader5] -- add your combo box handling code here..
+        //[/UserComboBoxCode_GenomeGrader5]
+    }
+
+    //[UsercomboBoxChanged_Post]
+    //[/UsercomboBoxChanged_Post]
 }
 
 void GUI::sliderValueChanged (Slider* sliderThatWasMoved)
@@ -656,24 +495,6 @@ BEGIN_JUCER_METADATA
                  snapShown="1" overlayOpacity="0.330" fixedSize="0" initialWidth="600"
                  initialHeight="400">
   <BACKGROUND backgroundColour="ff1c83b6">
-    <TEXT pos="180 452 200 30" fill="solid: ff000000" hasStroke="0" text="Grade Start Position"
-          fontname="Default font" fontsize="15.0" kerning="0.0" bold="0"
-          italic="0" justification="36"/>
-    <TEXT pos="180 484 200 30" fill="solid: ff000000" hasStroke="0" text="Grade Grain Duration"
-          fontname="Default font" fontsize="15.0" kerning="0.0" bold="0"
-          italic="0" justification="36"/>
-    <TEXT pos="180 516 200 30" fill="solid: ff000000" hasStroke="0" text="Grade Grain Speed"
-          fontname="Default font" fontsize="15.0" kerning="0.0" bold="0"
-          italic="0" justification="36"/>
-    <TEXT pos="180 548 200 30" fill="solid: ff000000" hasStroke="0" text="Grade Spawn Rate"
-          fontname="Default font" fontsize="15.0" kerning="0.0" bold="0"
-          italic="0" justification="36"/>
-    <TEXT pos="180 580 200 30" fill="solid: ff000000" hasStroke="0" text="Grade Play Speed"
-          fontname="Default font" fontsize="15.0" kerning="0.0" bold="0"
-          italic="0" justification="36"/>
-    <TEXT pos="172 412 436 34" fill="solid: ff000000" hasStroke="0" text="These will be for individual parameters NOT YET IMPLEMENTED"
-          fontname="Default font" fontsize="15.0" kerning="0.0" bold="1"
-          italic="0" justification="36" typefaceStyle="Bold"/>
     <TEXT pos="196 164 200 30" fill="solid: ff000000" hasStroke="0" text="Mutation Chance"
           fontname="Rockwell" fontsize="15.0" kerning="0.0" bold="0" italic="0"
           justification="36"/>
@@ -681,21 +502,6 @@ BEGIN_JUCER_METADATA
           fontname="Rockwell" fontsize="15.0" kerning="0.0" bold="0" italic="0"
           justification="36"/>
   </BACKGROUND>
-  <COMBOBOX name="new combo box" id="deb4221cd2a7852c" memberName="comboBox"
-            virtualName="" explicitFocusOrder="0" pos="384 456 150 24" editable="0"
-            layout="33" items="1,2,3,4,5" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
-  <COMBOBOX name="new combo box" id="df82696449890c36" memberName="comboBox2"
-            virtualName="" explicitFocusOrder="0" pos="384 488 150 24" editable="0"
-            layout="33" items="1,2,3,4,5" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
-  <COMBOBOX name="new combo box" id="ae662b1d00b38c4e" memberName="comboBox3"
-            virtualName="" explicitFocusOrder="0" pos="384 520 150 24" editable="0"
-            layout="33" items="1,2,3,4,5" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
-  <COMBOBOX name="new combo box" id="aff02fff3fd1f954" memberName="comboBox4"
-            virtualName="" explicitFocusOrder="0" pos="384 552 150 24" editable="0"
-            layout="33" items="1,2,3,4,5" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
-  <COMBOBOX name="new combo box" id="b9bbf3274145fb58" memberName="comboBox5"
-            virtualName="" explicitFocusOrder="0" pos="384 584 150 24" editable="0"
-            layout="33" items="1,2,3,4,5" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <TEXTBUTTON name="new button" id="8ec4b411001de765" memberName="loadSoundButton"
               virtualName="" explicitFocusOrder="0" pos="224 32 150 24" bgColOff="ff7e851c"
               buttonText="Load Sound" connectedEdges="0" needsCallback="1"

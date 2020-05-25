@@ -89,7 +89,7 @@ forwardFFT (fftOrder)
                 float binFrequency = std::distance(fftData.begin(), result) * binWidth;
                 std::cout << "Bin Frequency: " << binFrequency << '\n';
                 // now set grain speed according to sample frequency
-                offset = binFrequency / 40;
+                offset = binFrequency / 20;     // set point at which notes start to be chosen above or below the input note
                 if (offset > 24)
                 {
                     offset = 24;

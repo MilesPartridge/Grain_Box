@@ -34,8 +34,8 @@
                                                                     //[/Comments]
 */
 class GUI  : public Component,
-             public ComboBox::Listener,
              public Button::Listener,
+             public ComboBox::Listener,
              public Slider::Listener
 {
 public:
@@ -51,8 +51,8 @@ public:
 
     void paint (Graphics& g) override;
     void resized() override;
-    void comboBoxChanged (ComboBox* comboBoxThatHasChanged) override;
     void buttonClicked (Button* buttonThatWasClicked) override;
+    void comboBoxChanged (ComboBox* comboBoxThatHasChanged) override;
     void sliderValueChanged (Slider* sliderThatWasMoved) override;
 
 
@@ -63,11 +63,6 @@ private:
     //[/UserVariables]
 
     //==============================================================================
-    std::unique_ptr<ComboBox> comboBox;
-    std::unique_ptr<ComboBox> comboBox2;
-    std::unique_ptr<ComboBox> comboBox3;
-    std::unique_ptr<ComboBox> comboBox4;
-    std::unique_ptr<ComboBox> comboBox5;
     std::unique_ptr<TextButton> loadSoundButton;
     std::unique_ptr<ComboBox> GenomeGrader1;
     std::unique_ptr<ComboBox> GenomeGrader2;
