@@ -1,5 +1,3 @@
-# remember to change file path names in the workflow folder
-
 # Grain_Box
 ## Granular synthesiser controlled by a genetic algorithm
 
